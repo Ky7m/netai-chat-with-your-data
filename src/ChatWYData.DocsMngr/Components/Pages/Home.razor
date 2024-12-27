@@ -1,0 +1,234 @@
+﻿@page "/"
+@using ChatWYData.DocsMngr.Models
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject DocumentApiService documentApiService
+@inject DocProcessorWorkerApiService docProcessorWorkerApiService
+@inject ILogger<Program> Logger
+@inject IConfiguration Config
+
+<PageTitle>Home</PageTitle>
+
+<h1>Batch Upload</h1>
+
+<br />
+<InputFile OnChange="LoadFiles" ButtonStyle="ButtonStyle.Primary" multiple />
+<br />
+@if (selectedFiles is not null)
+{
+    foreach (var file in selectedFiles)
+    {
+        <div style="font-size: smaller;">
+            File: [@("File: " + file.Name + " - Content Type: " + file.ContentType + " - size: " + file.Size)]
+        </div>
+    }
+    <br />
+}
+<button @onclick="UploadFileButtonClick">Upload File</button>
+<hr />
+<div style="font-size: smaller;">
+    <button @onclick="ToggleRefreshDocs">@refreshButtonText</button>
+    Last Documents Table Update: [@tableUpdate]
+</div>
+<div style="font-size: smaller;">
+    <button @onclick="StartProcessDocuments">Process All Documents in queue</button>
+    Last [Process All Documents in Queue] Run: [@lastDocProcessorRun]
+</div>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>File Name</th>
+            <th>Status</th>
+            <th>Steps</th>
+        </tr>
+    </thead>
+
+    @if (filesProcessBatch is not null)
+    {
+        <tbody>
+            @foreach (var doc in filesProcessBatch)
+            {
+                <tr>
+                    <td>
+                        <div style="font-size: smaller;">
+                            <div><button @onclick="() => ProcessSingleDocument(doc.FileName, doc.FileContentType)">Process Doc</button></div>
+                            <div><button @onclick="() => IgnoreSingleDocument(doc.FileName)">Change Ignore</button></div>
+                        </div>
+                    </td>
+                    <td>
+                        @doc.FileName
+                        <div style="font-size: smaller;">
+                            <div>Created At: @doc.CreatedDate</div>
+                            <div>Updated At: @doc.LastModifiedDate</div>
+                            <div>Ignore: @doc.Ignore</div>
+                        </div>
+                    </td>
+                    <td>@doc.StatusMessage</td>
+                    <td>
+                        @foreach (var step in doc.StepsDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <div style="font-size: smaller;">@step</div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+@code {
+
+    private List<IBrowserFile> selectedFiles;
+    private bool isLoading;
+    private bool isUploading;
+    private long maxFileSize = 1024 * 1024 * 50;
+    private int maxAllowedFiles = 100;
+    private byte[] fileBytes;
+    private FileBatchUploadResponse? fileBatchUploadResponse;
+    private List<UploadFileProgress> filesToUploadCollection;
+    private List<FileProcessBatch>? filesProcessBatch;
+    private bool isRefreshing = false;
+    private Timer? refreshTimer;
+    private string refreshButtonText = "Start Refresh";
+    private DateTime tableUpdate = DateTime.Now;
+    private string lastDocProcessorRun = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        StartRefreshDocs();
+        base.OnInitialized();
+    }
+
+    private async Task LoadBatchFiles()
+    {
+        filesProcessBatch = await documentApiService.GetFileBatchUploadsToProcessByProcessed(false);
+        lastDocProcessorRun = await docProcessorWorkerApiService.GetHealthAsync();
+        tableUpdate = DateTime.Now;
+        StateHasChanged();
+    }
+
+    private async void RefreshDocs()
+    {
+        await LoadBatchFiles();
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        selectedFiles = new List<IBrowserFile>();
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                selectedFiles.Add(file);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}", file.Name, ex.Message);
+            }
+        }
+        isLoading = false;
+    }
+
+    private async void UploadFileButtonClick()
+    {
+        foreach (var file in selectedFiles)
+            await UploadFile(file);
+    }
+
+    private async Task UploadFile(IBrowserFile selectedFile)
+    {
+        isUploading = true;
+        StateHasChanged();
+        try
+        {
+            if (selectedFile is null)
+            {
+                Logger.LogInformation("No file selected to upload.");
+                return;
+            }
+
+            var fuRequest = new FileUploadRequest();
+            fuRequest.FileBytes = fileBytes;
+            fuRequest.FileName = selectedFile.Name;
+            fuRequest.FileContentType = selectedFile.ContentType;
+
+            // get the file bytes
+            fileBytes = new byte[selectedFile.Size];
+            await using var ms = new MemoryStream();
+            await selectedFile.OpenReadStream(maxFileSize).CopyToAsync(ms);
+            fileBytes = ms.ToArray();
+            fuRequest.FileBytes = fileBytes;
+            await documentApiService.FileBatchUploadDocAsync(fuRequest);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Error uploading file. Error: {ex}");
+        }
+        selectedFiles = new List<IBrowserFile>();
+        isUploading = false;
+        StateHasChanged();
+    }
+
+    private string GetStatusColor(string status)
+    {
+        switch (status)
+        {
+            case "Uploaded":
+                return "green";
+            case "Uploading ...":
+                return "blue";
+            default:
+                return "black";
+        }
+    }
+
+    private void ToggleRefreshDocs()
+    {
+        if (isRefreshing)
+        {
+            StopRefreshDocs();
+        }
+        else
+        {
+            StartRefreshDocs();
+        }
+    }
+
+    private void StartRefreshDocs()
+    {
+        isRefreshing = true;
+        refreshButtonText = "Stop Refresh";
+        refreshTimer = new Timer(async _ => await InvokeAsync(RefreshDocs), null, 0, 1000);
+    }
+
+    private void StopRefreshDocs()
+    {
+        isRefreshing = false;
+        refreshButtonText = "Start Refresh";
+        refreshTimer?.Dispose();
+    }
+
+    private async void StartProcessDocuments()
+    {
+        await docProcessorWorkerApiService.ProcessDocumentsAsync();
+    }
+
+    private async void ProcessSingleDocument(string fileName, string fileContentType)
+    {
+        var fur = new FileUploadRequest()
+        {
+            FileName = fileName,
+            FileContentType = fileContentType,
+        };
+        await documentApiService.FileBatchProcessDocAsync(fur);
+    }
+
+    private async void IgnoreSingleDocument(string fileName)
+    {
+        await documentApiService.IgnoreSingleDocumentAsync(fileName);
+    }
+}

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.FileEntities\ChatWYData.FileEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.SearchEntities\ChatWYData.SearchEntities.csproj" />
+  </ItemGroup>
+
+</Project>

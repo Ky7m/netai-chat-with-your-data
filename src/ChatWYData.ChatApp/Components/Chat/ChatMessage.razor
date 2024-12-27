@@ -1,0 +1,55 @@
+﻿@using ChatWYData.ChatApp.Model
+@using ChatWYData.SearchEntities
+@using OpenAI.Chat
+
+@if (chatMessageWithDocs.ChatMessage is AssistantChatMessage)
+{
+    var assistantMessage = chatMessageWithDocs.ChatMessage as AssistantChatMessage;
+    var messageContent = GetMessageContent(assistantMessage);
+    <div class="message assistant visible">
+        <div class="sender-name">Assistant</div>
+        <div class="message-content" visi>
+            <div class="message-text">@messageContent</div>
+        </div>
+    </div>
+
+    // display the list of documents
+    if (chatMessageWithDocs.Documents != null && chatMessageWithDocs.Documents.Count > 0)
+    {
+        <div class="documents">
+            <h6>Ref Documents</h6>
+            <ul>
+                @foreach (var doc in chatMessageWithDocs.Documents)
+                {
+                    <li>
+                        <a href="@doc.FileBlobUri" target="_blank">@doc.FileName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+else
+{
+    var userMessage = chatMessageWithDocs.ChatMessage as UserChatMessage;
+    var messageContent = GetMessageContent(userMessage);
+    <div class="message">
+        <div class="sender-name">You</div>
+        <div class="message-content">
+            <div class="message-text">@messageContent</div>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter, EditorRequired]
+    public ChatMessageWithDocuments chatMessageWithDocs { get; set; } = default!;
+
+
+    private string GetMessageContent(OpenAI.Chat.ChatMessage openAIChatMessage)
+    {
+        return openAIChatMessage.Content[0].Text;
+    }
+
+} 

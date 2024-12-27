@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3a7d549e-bc95-46fd-92c5-cf1d6eecbed9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Aspire.Azure.Storage.Blobs" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+	  <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+	  <PackageReference Include="Aspire.Azure.AI.OpenAI" Version="9.0.0-preview.5.24551.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatWYData.ApiServices\ChatWYData.ApiServices.csproj" />
+    <ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.FileEntities\ChatWYData.FileEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

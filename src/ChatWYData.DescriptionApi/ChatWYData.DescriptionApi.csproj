@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>28ff5d86-a1ae-4871-acf1-b859a64ba641</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+	  <PackageReference Include="Aspire.Azure.AI.OpenAI" Version="9.0.0-preview.5.24551.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

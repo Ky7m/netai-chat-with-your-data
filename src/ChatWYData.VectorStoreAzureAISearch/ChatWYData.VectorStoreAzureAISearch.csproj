@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>ff4fa835-9527-41c8-8b3a-524590bc253f</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+		<PackageReference Include="Aspire.Azure.AI.OpenAI" Version="9.0.0-preview.5.24551.3" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureAISearch" Version="1.32.0-preview" />
+		<PackageReference Include="Aspire.Azure.Search.Documents" Version="9.0.0" />
+		<PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ChatWYData.FileEntities\ChatWYData.FileEntities.csproj" />
+		<ProjectReference Include="..\ChatWYData.SearchEntities\ChatWYData.SearchEntities.csproj" />
+		<ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\ChatWYData.VectorEntities\ChatWYData.VectorEntities.csproj" />
+	</ItemGroup>
+
+</Project>

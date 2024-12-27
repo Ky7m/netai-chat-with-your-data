@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+    <UserSecretsId>09cd9a67-0334-4a8b-8cee-7bf6c75158fa</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatWYData.ApiServices\ChatWYData.ApiServices.csproj" />
+    <ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.FileEntities\ChatWYData.FileEntities.csproj" />
+    <ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
+  </ItemGroup>
+</Project>

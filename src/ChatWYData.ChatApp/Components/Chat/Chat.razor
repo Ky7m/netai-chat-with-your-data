@@ -1,0 +1,26 @@
+@page "/chat"
+@inject IConfiguration Configuration
+@inject IJSRuntime JS
+@attribute [StreamRendering(true)]
+
+<PageTitle>Chat with your Data</PageTitle>
+
+<div class="chat">
+    <div class="messages-scroller">
+        <div class="messages">
+            @for (var i = 0; i < conversationMessages.Count; i++)
+            {
+                var id = $"message{i}";
+                var currentMessage = conversationMessages[i]!;
+                <ChatMessage @key="@id" chatMessageWithDocs="@currentMessage" />
+            }
+            @if (isSearching)
+            {<p>Processing your question, please wait ...</p>}
+        </div>
+    </div>
+
+    <form class="write-message" @ref="@writeMessageElement" @onsubmit="@SendMessage">
+        <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" style="width: 100%; height: 100%;" />
+        <button type="submit">Send</button>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsAspireHost>true</IsAspireHost>
+		<UserSecretsId>3e9fd9fb-e2c0-4477-bbd3-ab03823266cd</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+		<PackageReference Include="Aspire.Hosting.Azure.ApplicationInsights" Version="9.0.0" />
+		<PackageReference Include="Aspire.Hosting.Azure.CognitiveServices" Version="9.0.0" />
+		<PackageReference Include="Aspire.Hosting.SqlServer" Version="9.0.0" />
+		<PackageReference Include="Aspire.Hosting.Azure.Storage" Version="9.0.0" />
+		<PackageReference Include="Aspire.Hosting.Azure.Search" Version="9.0.0" />
+		<PackageReference Include="CommunityToolkit.Aspire.Hosting.Python.Extensions" Version="9.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ChatWYData.ChatApp\ChatWYData.ChatApp.csproj" />
+	  <ProjectReference Include="..\ChatWYData.DescriptionApi\ChatWYData.DescriptionApi.csproj" />
+	  <ProjectReference Include="..\ChatWYData.DocsMngr\ChatWYData.DocsMngr.csproj" />
+	  <ProjectReference Include="..\ChatWYData.DocumentsApi\ChatWYData.DocumentsApi.csproj" />
+	  <ProjectReference Include="..\ChatWYData.MarkDown.MarkitdownBashApi\ChatWYData.MarkDown.MarkitdownBashApi.csproj" />
+	  <ProjectReference Include="..\ChatWYData.MarkDown.MarkitdownCSnakes\ChatWYData.MarkDown.MarkitdownCSnakes.csproj" />
+	  <ProjectReference Include="..\ChatWYData.MarkDownApi\ChatWYData.MarkdownApi.csproj" />
+	  <ProjectReference Include="..\ChatWYData.VectorStoreAzureAISearch\ChatWYData.VectorStoreAzureAISearch.csproj" />
+	  <ProjectReference Include="..\ChatWYData.Workers.DocProcessor\ChatWYData.Workers.DocProcessor.csproj" />
+	</ItemGroup>
+</Project>
