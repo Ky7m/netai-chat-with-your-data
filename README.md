@@ -2,7 +2,7 @@
 [![Twitter: elbruno](https://img.shields.io/twitter/follow/elbruno.svg?style=social)](https://twitter.com/elbruno)
 ![GitHub: elbruno](https://img.shields.io/github/followers/elbruno?style=social)
 
-# Project Name
+# NET+AI - Chat with your Data
 
 **Chat with your Data** is a reference .NET application implementing an Chat application based on documents content with search features using **Semantic Search with Vector Database and Azure AI Search**.
 
