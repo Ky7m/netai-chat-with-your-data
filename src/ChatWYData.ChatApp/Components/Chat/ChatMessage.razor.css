@@ -59,12 +59,12 @@
 }
 
 .markdown-content {
-    background-color: white;
+    background-color: white !important;
     text-align: left;
     align-content: flex-end;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #BB86FC; /* Light .NET purple */
+    border: 2px solid #BB86FC; /* Light .NET purple */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -100,3 +100,4 @@
     font-size: 0.8em; /* Smaller font size */
     text-align: right; /* Align to the right */
 }
+
