@@ -1,5 +1,4 @@
 @page "/chat"
-@inject IConfiguration Configuration
 @inject IJSRuntime JS
 @attribute [StreamRendering(true)]
 
@@ -20,9 +19,10 @@
     </div>
 
     <form class="write-message" @ref="@writeMessageElement" @onsubmit="@SendMessage">
-        <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" style="width: 100%; height: 100%;" />
+        <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" class="message-input" />
         <button type="submit">Send</button>
     </form>
 </div>
 
-<link rel="stylesheet" href="css/Chat.razor.css" />
+<link rel="stylesheet" href="css/Chat.razor.complete.css" />
+

@@ -1,101 +1,82 @@
 .message {
-    display: grid;
-    grid-template-columns: 2rem 1fr;
-    grid-template-rows: min-content min-content;
-    grid-template-areas:
-        "sender-icon sender-name"
-        ". message";
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #BB86FC; /* Light .NET purple */
+    color: black;
+    max-width: 80%;
+    display: flow;
     gap: 0.25rem .75rem;
     animation: message-appear 0.25s ease-out;
     overflow-y: hidden;
 }
 
-@keyframes message-appear {
-    0% {
-        max-height: 0;
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-        max-height: 100px;
-    }
-}
-
-.message ::deep .initials {
-    background-color: grey;
-}
-
-.message.assistant ::deep .initials {
-    background-color: #d800b1;
-}
-
-.message.assistant:not(.visible) {
-    display: none;
-}
-
-.sender-icon {
-    grid-area: sender-icon;
-    align-self: center;
-    justify-self: center;
-}
-
-    .sender-icon ::deep img {
-        width: 21px !important;
-    }
-
-.sender-name {
-    grid-area: sender-name;
-    font-size: 1rem;
-    font-weight: 600;
-    align-self: center;
-}
-
-.message-content {
-    grid-area: message;
-}
-
 .message-text {
-    white-space: pre-line;
-    word-break: break-word;
+    font-size: 1em;
+    color: gray;
+    margin-top: 5px;
 }
 
-.search-info {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+.message-time {
+    font-size: 0.6em;
+    margin-top: 5px;
 }
 
-    .search-info:before {
-        content: 'Searching: ';
+.documents {
+    margin-top: 10px;
+}
+
+    .documents h6 {
+        margin-bottom: 5px;
     }
 
-.reference-link {
-    display: flex;
-    text-decoration: none;
-    background-color: rgba(128, 128, 128, 0.3);
-    padding: 0.5rem 0.9rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-}
-
-    .reference-link .ref-text {
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+    .documents ul {
+        list-style-type: none;
+        padding-left: 0;
     }
 
-        .reference-link svg {
-            color: var(--neutral-foreground-rest);
-            width: var(--type-ramp-base-line-height);
-            height: var(--type-ramp-base-line-height);
-            flex-grow: 0;
-            flex-shrink: 0;
-            margin-right: 0.4rem;
+    .documents li {
+        margin-bottom: 5px;
+    }
+
+    .documents a {
+        color: #BB86FC; /* Light .NET purple */
+        text-decoration: none;
+    }
+
+        .documents a:hover {
+            text-decoration: underline;
         }
 
-::deep .use-as-reply {
-    margin-top: 0.8rem;
-    text-align: center;
+/* Style for user messages */
+.message.user {
+    background-color: #BB86FC; /* Light .NET purple */
+    color: #FFFFFF; /* White text for contrast */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: end; /* Align messages to the right */
+    max-width: 75%;
+}
+
+    /* Style adjustments for message content */
+    .message.user .message-content {
+        flex-direction: column;
+    }
+
+    /* Style for the sender name */
+    .message.user .sender-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+/* Ensure assistant messages remain distinct */
+.message.assistant {
+    background-color: #E1E1E1; /* Light gray */
+    color: #000000; /* Black text */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: flex-start; /* Align messages to the left */
+    max-width: 75%;
 }

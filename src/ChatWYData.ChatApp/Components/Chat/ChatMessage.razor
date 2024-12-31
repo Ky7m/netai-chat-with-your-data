@@ -44,16 +44,13 @@ else
 }
 
 @code {
-
     [Parameter, EditorRequired]
     public ChatMessageWithDocuments chatMessageWithDocs { get; set; } = default!;
-
 
     private string GetMessageContent(OpenAI.Chat.ChatMessage openAIChatMessage)
     {
         return openAIChatMessage.Content[0].Text;
     }
-
 }
 
-<link rel="stylesheet" href="css/ChatMessage.razor.css" />
+<link rel="stylesheet" href="css/ChatMessage.razor.complete.css" />
