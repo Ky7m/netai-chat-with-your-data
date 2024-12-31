@@ -401,3 +401,4 @@ FodyWeavers.xsd
 
 # Not include python virtual environments
 **.venv**
+/src/ChatWYData.ChatApp/cleandirs.cmd
