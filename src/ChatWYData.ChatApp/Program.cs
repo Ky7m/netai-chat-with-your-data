@@ -15,7 +15,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // Saas compiler for css styles and files
-builder.Services.AddSassCompiler();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSassCompiler();
+}
 
 
 var app = builder.Build();
