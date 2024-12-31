@@ -13,6 +13,11 @@
     padding: 10px;
 }
 
+.messages {
+    display: flex;
+    flex-direction: column;
+}
+
 .write-message {
     display: flex;
     padding: 10px;
@@ -44,3 +49,4 @@
 .write-message-button:hover {
     background-color: #3700B3; /* Darker .NET purple */
 }
+
