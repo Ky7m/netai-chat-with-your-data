@@ -83,3 +83,10 @@
 .documents-a:hover {
     text-decoration: underline;
 }
+
+/* Style for assistant documents */
+.documents-assistant {
+    color: #512BD4; /* Dark .NET purple */
+    font-size: 0.8em; /* Smaller font size */
+    text-align: right; /* Align to the right */
+}
