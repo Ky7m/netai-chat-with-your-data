@@ -20,7 +20,7 @@
     align-items: center; /* Ensure textarea and button are aligned */
 }
 
-.write-message textarea {
+.write-message-textarea {
     flex: 1;
     border: none;
     border-radius: 5px;
@@ -32,7 +32,7 @@
     height: 50px; /* Fixed height to prevent overflow */
 }
 
-.write-message button {
+.write-message-button {
     background-color: #6200EE; /* .NET purple */
     color: white;
     border: none;
@@ -41,7 +41,6 @@
     cursor: pointer;
 }
 
-.write-message button:hover {
+.write-message-button:hover {
     background-color: #3700B3; /* Darker .NET purple */
 }
-

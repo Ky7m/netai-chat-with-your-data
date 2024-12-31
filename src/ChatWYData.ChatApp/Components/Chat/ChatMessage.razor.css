@@ -7,52 +7,52 @@
     max-width: 80%;
     display: flow;
     gap: 0.25rem .75rem;
-    animation: message-appear 0.25s ease-out;
+    animation: message-appear 1.25s ease-out;
     overflow-y: hidden;
 }
 
-    .message-text {
-        font-size: 1em;
-        color: gray;
-        margin-top: 5px;
-    }
-
-    .message-time {
-        font-size: 0.6em;
-        margin-top: 5px;
-    }
-
-    .sender-name {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-/* Style for user messages */
-.message.user {
-    background-color: #512BD4; /* Dark .NET purple */
-    color: #FFFFFF; /* White text for contrast */
-    border-radius: 8px;
-    padding: 10px;
-    margin: 5px 0;
-    align-self: flex-end; /* Align messages to the right */
-    max-width: 80%;
+.message-text {
+    font-size: 1em;
+    color: gray;
+    margin-top: 5px;
 }
 
-    /* Style adjustments for message content */
-    .message.user .message-content {
-        flex-direction: inherit;
-        align-self: flex-end; /* Align messages to the right */
-    }
+.message-time {
+    font-size: 0.6em;
+    margin-top: 5px;
+}
 
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
 
-/* Ensure assistant messages remain distinct */
-.message.assistant {
-    background-color: #E1E1E1; /* Light gray */
-    color: #000000; /* Black text */
+/* Style for user messages */
+.message-user {
+    background-color: #512BD4; /* Dark .NET purple */
     border-radius: 8px;
     padding: 10px;
     margin: 5px 0;
-    align-self: flex-start; /* Align messages to the left */
+    max-width: 80%;
+    color: white;
+}
+
+/* Style adjustments for message content */
+.message-user-content {
+    flex-direction: inherit;
+    align-self: flex-end; /* Align messages to the right */
+}
+
+.message-user-text {
+    color: white;
+}
+
+/* Ensure assistant messages remain distinct */
+.message-assistant {
+    background-color: #E1E1E1; /* Light gray */
+    color: #000000; /* Black text */
+    padding: 10px;
+    margin: 5px 0;
     max-width: 80%;
 }
 
@@ -60,24 +60,24 @@
     margin-top: 10px;
 }
 
-    .documents h6 {
-        margin-bottom: 5px;
-    }
+.documents-h6 {
+    margin-bottom: 5px;
+}
 
-    .documents ul {
-        list-style-type: none;
-        padding-left: 0;
-    }
+.documents-ul {
+    list-style-type: none;
+    padding-left: 0;
+}
 
-    .documents li {
-        margin-bottom: 5px;
-    }
+.documents-li {
+    margin-bottom: 5px;
+}
 
-    .documents a {
-        color: #BB86FC; /* Light .NET purple */
-        text-decoration: none;
-    }
+.documents-a {
+    color: #BB86FC; /* Light .NET purple */
+    text-decoration: none;
+}
 
-        .documents a:hover {
-            text-decoration: underline;
-        }
+.documents-a:hover {
+    text-decoration: underline;
+}

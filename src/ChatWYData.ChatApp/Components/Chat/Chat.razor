@@ -19,10 +19,9 @@
     </div>
 
     <form class="write-message" @ref="@writeMessageElement" @onsubmit="@SendMessage">
-        <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" class="message-input" />
-        <button type="submit">Send</button>
+        <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" class="write-message-textarea" />
+        <button type="submit" class="write-message-button">Send</button>
     </form>
 </div>
 
 <link rel="stylesheet" href="css/Chat.razor.complete.css" />
-
