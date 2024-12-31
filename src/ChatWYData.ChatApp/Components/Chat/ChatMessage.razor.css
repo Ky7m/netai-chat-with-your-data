@@ -61,8 +61,10 @@
 .markdown-content {
     background-color: white;
     text-align: left;
+    align-content: flex-end;
     padding: 10px;
     border-radius: 5px;
+    border: 1px solid #BB86FC; /* Light .NET purple */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

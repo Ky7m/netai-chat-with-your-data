@@ -115,7 +115,7 @@ public static class VectorStoreEndpoints
                 var i = 0;
                 await foreach (var searchItem in searchResults.Results)
                 {
-                    if (searchItem.Score > (searchRequest.MinScore / 100))
+                    if (searchItem.Score > (searchRequest.MinScore / 100.0))
                     {
                         i++;
                         var doc = new Document
@@ -210,3 +210,4 @@ Do not include the documents URI to be displayed in the response.";
         return responseText;
     }
 }
+

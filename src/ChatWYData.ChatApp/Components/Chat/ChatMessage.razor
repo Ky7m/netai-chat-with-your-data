@@ -1,6 +1,7 @@
 ﻿@using ChatWYData.ChatApp.Model
 @using ChatWYData.SearchEntities
 @using OpenAI.Chat
+@inject IJSRuntime JS
 
 @if (chatMessageWithDocs.ChatMessage is AssistantChatMessage)
 {
@@ -22,8 +23,11 @@
                     @foreach (var doc in chatMessageWithDocs.Documents)
                     {
                         <li class="documents-li">
-                            <a href="@doc.FileBlobUri" target="_blank" class="documents-a">@doc.FileName</a>
-                            <button @onclick="() => ToggleMarkdownVisibility(doc.FileMarkDown)">[View / Hide]</button>
+                            <div class="document-header">
+                                <span class="document-title">@doc.FileName</span>
+                                <button @onclick="() => DownloadDocument(doc.FileBlobUri)">Download</button>
+                                <button @onclick="() => ToggleMarkdownVisibility(doc.FileMarkDown)">[View / Hide]</button>
+                            </div>
                             @if (IsMarkdownVisible(doc.FileMarkDown))
                             {
                                 <div class="col">
@@ -77,6 +81,12 @@ else
     private bool IsMarkdownVisible(string fileName)
     {
         return markdownVisibility.ContainsKey(fileName) && markdownVisibility[fileName];
+    }
+
+    private void DownloadDocument(string fileBlobUri)
+    {
+        // start the download of the document from the url
+        JS.InvokeVoidAsync("ChatWYData.ChatApp.downloadDocument", fileBlobUri);
     }
 }
 
