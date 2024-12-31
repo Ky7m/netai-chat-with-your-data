@@ -1,0 +1,62 @@
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #BB86FC; /* Light .NET purple */
+    color: black;
+    max-width: 60%;
+}
+
+.message.assistant {
+    background-color: #6200EE; /* .NET purple */
+    color: white;
+    align-self: flex-start;
+}
+
+.message.user {
+    background-color: #03DAC6; /* Teal color for user messages */
+    color: black;
+    align-self: flex-end;
+}
+
+.sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-time {
+    font-size: 0.6em;
+    color: gray;
+    margin-top: 5px;
+}
+
+.documents {
+    margin-top: 10px;
+}
+
+.documents h6 {
+    margin-bottom: 5px;
+}
+
+.documents ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.documents li {
+    margin-bottom: 5px;
+}
+
+.documents a {
+    color: #BB86FC; /* Light .NET purple */
+    text-decoration: none;
+}
+
+.documents a:hover {
+    text-decoration: underline;
+}

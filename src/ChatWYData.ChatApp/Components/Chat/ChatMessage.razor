@@ -8,8 +8,9 @@
     var messageContent = GetMessageContent(assistantMessage);
     <div class="message assistant visible">
         <div class="sender-name">Assistant</div>
-        <div class="message-content" visi>
+        <div class="message-content">
             <div class="message-text">@messageContent</div>
+            <div class="message-time">@DateTime.Now.ToString("g")</div> <!-- Add date and time -->
         </div>
     </div>
 
@@ -33,10 +34,11 @@ else
 {
     var userMessage = chatMessageWithDocs.ChatMessage as UserChatMessage;
     var messageContent = GetMessageContent(userMessage);
-    <div class="message">
+    <div class="message user">
         <div class="sender-name">You</div>
         <div class="message-content">
             <div class="message-text">@messageContent</div>
+            <div class="message-time">@DateTime.Now.ToString("g")</div> <!-- Add date and time -->
         </div>
     </div>
 }
@@ -52,4 +54,6 @@ else
         return openAIChatMessage.Content[0].Text;
     }
 
-} 
+}
+
+<link rel="stylesheet" href="css/ChatMessage.razor.css" />
