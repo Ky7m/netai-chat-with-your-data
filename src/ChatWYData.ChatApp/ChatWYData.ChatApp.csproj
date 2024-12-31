@@ -1,27 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>ChatWYData.ChatApp</RootNamespace>
-    <UserSecretsId>b0ee5b46-677b-4906-bcc3-e74dafe7a50f</UserSecretsId>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Model\**" />
-    <Content Remove="Model\**" />
-    <EmbeddedResource Remove="Model\**" />
-    <None Remove="Model\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Model\ChatWithDocuments.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.13.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ChatWYData.ApiServices\ChatWYData.ApiServices.csproj" />
-    <ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
-    <ProjectReference Include="..\ChatWYData.SearchEntities\ChatWYData.SearchEntities.csproj" />
-    <ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>ChatWYData.ChatApp</RootNamespace>
+		<UserSecretsId>b0ee5b46-677b-4906-bcc3-e74dafe7a50f</UserSecretsId>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Model\**" />
+		<Content Remove="Model\**" />
+		<EmbeddedResource Remove="Model\**" />
+		<None Remove="Model\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="Model\ChatWithDocuments.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Components/Pages/*.razor.css" CssScope="custom-scope-identifier" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.SassCompiler" Version="1.83.0" />
+		<PackageReference Include="Azure.Identity" Version="1.13.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ChatWYData.ApiServices\ChatWYData.ApiServices.csproj" />
+		<ProjectReference Include="..\ChatWYData.DataEntities\ChatWYData.DataEntities.csproj" />
+		<ProjectReference Include="..\ChatWYData.SearchEntities\ChatWYData.SearchEntities.csproj" />
+		<ProjectReference Include="..\ChatWYData.ServiceDefaults\ChatWYData.ServiceDefaults.csproj" />
+	</ItemGroup>
 </Project>

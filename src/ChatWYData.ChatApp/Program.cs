@@ -14,6 +14,10 @@ builder.Services.AddHttpClient<VectorStoreApiService>(
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Saas compiler for css styles and files
+builder.Services.AddSassCompiler();
+
+
 var app = builder.Build();
 
 // aspire map default endpoints

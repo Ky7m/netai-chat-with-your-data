@@ -11,15 +11,49 @@
     overflow-y: hidden;
 }
 
-.message-text {
-    font-size: 1em;
-    color: gray;
-    margin-top: 5px;
+    .message-text {
+        font-size: 1em;
+        color: gray;
+        margin-top: 5px;
+    }
+
+    .message-time {
+        font-size: 0.6em;
+        margin-top: 5px;
+    }
+
+    .sender-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+/* Style for user messages */
+.message.user {
+    background-color: #512BD4; /* Dark .NET purple */
+    color: #FFFFFF; /* White text for contrast */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: flex-end; /* Align messages to the right */
+    max-width: 80%;
 }
 
-.message-time {
-    font-size: 0.6em;
-    margin-top: 5px;
+    /* Style adjustments for message content */
+    .message.user .message-content {
+        flex-direction: inherit;
+        align-self: flex-end; /* Align messages to the right */
+    }
+
+
+/* Ensure assistant messages remain distinct */
+.message.assistant {
+    background-color: #E1E1E1; /* Light gray */
+    color: #000000; /* Black text */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px 0;
+    align-self: flex-start; /* Align messages to the left */
+    max-width: 80%;
 }
 
 .documents {
@@ -47,36 +81,3 @@
         .documents a:hover {
             text-decoration: underline;
         }
-
-/* Style for user messages */
-.message.user {
-    background-color: #BB86FC; /* Light .NET purple */
-    color: #FFFFFF; /* White text for contrast */
-    border-radius: 8px;
-    padding: 10px;
-    margin: 5px 0;
-    align-self: end; /* Align messages to the right */
-    max-width: 75%;
-}
-
-    /* Style adjustments for message content */
-    .message.user .message-content {
-        flex-direction: column;
-    }
-
-    /* Style for the sender name */
-    .message.user .sender-name {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-/* Ensure assistant messages remain distinct */
-.message.assistant {
-    background-color: #E1E1E1; /* Light gray */
-    color: #000000; /* Black text */
-    border-radius: 8px;
-    padding: 10px;
-    margin: 5px 0;
-    align-self: flex-start; /* Align messages to the left */
-    max-width: 75%;
-}
