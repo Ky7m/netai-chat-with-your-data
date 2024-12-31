@@ -4,6 +4,7 @@
 
 @if (chatMessageWithDocs.ChatMessage is AssistantChatMessage)
 {
+    // display the response coming from the assistant
     var assistantMessage = chatMessageWithDocs.ChatMessage as AssistantChatMessage;
     var messageContent = GetMessageContent(assistantMessage);
     <div class="message message-assistant visible">
@@ -31,6 +32,7 @@
 }
 else
 {
+    // display the content of the user message
     var userMessage = chatMessageWithDocs.ChatMessage as UserChatMessage;
     var messageContent = GetMessageContent(userMessage);
     <div class="message message-user visible">
