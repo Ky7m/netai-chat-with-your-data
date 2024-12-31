@@ -23,6 +23,13 @@
                     {
                         <li class="documents-li">
                             <a href="@doc.FileBlobUri" target="_blank" class="documents-a">@doc.FileName</a>
+                            <button @onclick="() => ToggleMarkdownVisibility(doc.FileMarkDown)">[View / Hide]</button>
+                            @if (IsMarkdownVisible(doc.FileMarkDown))
+                            {
+                                <div class="col">
+                                    <Markdown class="markdown-content" style="max-height: 437px;overflow-y:auto;">@doc.FileMarkDown</Markdown>
+                                </div>
+                            }
                         </li>
                     }
                 </ul>
@@ -51,6 +58,25 @@ else
     private string GetMessageContent(OpenAI.Chat.ChatMessage openAIChatMessage)
     {
         return openAIChatMessage.Content[0].Text;
+    }
+
+    private Dictionary<string, bool> markdownVisibility = new Dictionary<string, bool>();
+
+    private void ToggleMarkdownVisibility(string fileName)
+    {
+        if (markdownVisibility.ContainsKey(fileName))
+        {
+            markdownVisibility[fileName] = !markdownVisibility[fileName];
+        }
+        else
+        {
+            markdownVisibility[fileName] = true;
+        }
+    }
+
+    private bool IsMarkdownVisible(string fileName)
+    {
+        return markdownVisibility.ContainsKey(fileName) && markdownVisibility[fileName];
     }
 }
 

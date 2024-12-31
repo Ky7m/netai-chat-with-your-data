@@ -20,6 +20,7 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddSassCompiler();
 }
 
+builder.Services.AddBlazorBootstrap();
 
 var app = builder.Build();
 

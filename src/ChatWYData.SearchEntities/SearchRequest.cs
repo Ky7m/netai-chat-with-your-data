@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ChatWYData.SearchEntities;
 
-public class SearchRequest(string query = "", int maxResults = 2, int minScore = 60, List<SearchChatMessage> messages = null)
+public class SearchRequest(string query = "", int maxResults = 2, int minScore = 80, List<SearchChatMessage> messages = null)
 {
     public string Query { get; set; } = query;
     public int MaxResults { get; set; } = maxResults;

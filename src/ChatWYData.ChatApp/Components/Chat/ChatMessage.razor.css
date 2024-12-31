@@ -58,6 +58,14 @@
     align-self: flex-start; /* Align messages to the left */
 }
 
+.markdown-content {
+    background-color: white;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .documents {
     margin-top: 10px;
 }
