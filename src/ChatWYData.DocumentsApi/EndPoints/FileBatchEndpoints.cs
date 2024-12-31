@@ -146,13 +146,13 @@ public static class FileBatchEndpoints
             if (document == null)
             {
                 logger.LogInformation($"Document not found. Creating a new one.");
-                document = new Document
-                {
-                    FileName = fileProcessBatch.FileName,
-                    FileContentType = fileProcessBatch.FileContentType,
-                };
+                document = new Document();
                 addDoc = true;
             }
+            document.FileName = fileProcessBatch.FileName;
+            document.FileContentType = fileProcessBatch.FileContentType;
+            document.FileBlobUri = fileProcessBatch.FileBlobUri;
+
             logger.LogInformation($"DONE Save or update the document in the database");
 
             await UpdateFileProcessBatchStatus(db, fuRequest, "document saved to database");
