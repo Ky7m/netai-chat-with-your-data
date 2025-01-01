@@ -17,7 +17,7 @@
 
         @if (chatMessageWithDocs.Documents != null && chatMessageWithDocs.Documents.Count > 0)
         {
-            <Modal @ref="modal" Title="Source Documents">
+            <Modal @ref="modal" Title="Sources">
                 <BodyTemplate>
                     <div class="documents documents-assistant">
                         <ul class="documents-ul">
@@ -57,7 +57,7 @@ else
         <div class="sender-name">You</div>
         <div class="message-content message-user-content">
             <div class="message-text message-user-text">@messageContent</div>
-            <div class="message-time">@DateTime.Now.ToString("g")</div> <!-- Add date and time -->
+            <div class="message-time">@chatMessageWithDocs.ChatMessageDateTime.ToString("g")</div> <!-- Add date and time -->
         </div>
     </div>
 }

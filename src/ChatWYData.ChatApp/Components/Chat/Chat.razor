@@ -17,6 +17,9 @@
         </div>
     </div>
 
+    <hr /> <!-- Line separator added here -->
+
+
     <form class="write-message" @ref="@writeMessageElement" @onsubmit="@SendMessage">
         <textarea @bind="@userMessageText" Placeholder="Ask the AI assistant" class="write-message-textarea" />
         <button type="submit" class="write-message-button">Send</button>
