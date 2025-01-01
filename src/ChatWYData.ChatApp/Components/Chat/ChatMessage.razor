@@ -17,27 +17,34 @@
 
         @if (chatMessageWithDocs.Documents != null && chatMessageWithDocs.Documents.Count > 0)
         {
-            <div class="documents documents-assistant">
-                <h6 class="documents-h6">Source Documents</h6>
-                <ul class="documents-ul">
-                    @foreach (var doc in chatMessageWithDocs.Documents)
-                    {
-                        <li class="documents-li">
-                            <div class="document-header">
-                                <span class="document-title">@doc.FileName</span>
-                                <button @onclick="() => DownloadDocument(doc.FileBlobUri)">Download</button>
-                                <button @onclick="() => ToggleMarkdownVisibility(doc.FileMarkDown)">[View / Hide]</button>
-                            </div>
-                            @if (IsMarkdownVisible(doc.FileMarkDown))
+            <Modal @ref="modal" Title="Source Documents">
+                <BodyTemplate>
+                    <div class="documents documents-assistant">
+                        <ul class="documents-ul">
+                            @foreach (var doc in chatMessageWithDocs.Documents)
                             {
-                                <div class="markdown-content">
-                                    <Markdown style="max-height: 437px;overflow-y:auto;">@doc.FileMarkDown</Markdown>
-                                </div>
+                                <li class="documents-li">
+                                    <div class="document-header">
+                                        <span class="document-title">@doc.FileName</span>
+                                        <button @onclick="() => DownloadDocument(doc.FileBlobUri)">Download</button>
+                                        <button @onclick="() => ToggleMarkdownVisibility(doc.FileMarkDown)">[View / Hide]</button>
+                                    </div>
+                                    @if (IsMarkdownVisible(doc.FileMarkDown))
+                                    {
+                                        <div class="markdown-content">
+                                            <Markdown style="max-height: 437px;overflow-y:auto;">@doc.FileMarkDown</Markdown>
+                                        </div>
+                                    }
+                                </li>
                             }
-                        </li>
-                    }
-                </ul>
-            </div>
+                        </ul>
+                    </div>
+                </BodyTemplate>
+                <FooterTemplate>
+                    <Button Color="ButtonColor.Secondary" @onclick="OnHideModalClick">Close</Button>
+                </FooterTemplate>
+            </Modal>
+            <Button Color="ButtonColor.Primary" @onclick="OnShowModalClick">Show Source Documents</Button>
         }
     </div>
 }
@@ -87,6 +94,19 @@ else
     {
         // start the download of the document from the url
         JS.InvokeVoidAsync("ChatWYData.ChatApp.downloadDocument", fileBlobUri);
+    }
+
+    // Modal
+    private Modal modal = default!;
+
+    private async Task OnShowModalClick()
+    {
+        await modal.ShowAsync();
+    }
+
+    private async Task OnHideModalClick()
+    {
+        await modal.HideAsync();
     }
 }
 
