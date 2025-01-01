@@ -13,8 +13,7 @@
                 var currentMessage = conversationMessages[i]!;
                 <ChatMessage @key="@id" chatMessageWithDocs="@currentMessage" />
             }
-            @if (isSearching)
-            {<p>Processing your question, please wait ...</p>}
+            <Spinner Class="me-3" Type="SpinnerType.Dots" Color="SpinnerColor.Primary" Visible="@isSearching" />
         </div>
     </div>
 
