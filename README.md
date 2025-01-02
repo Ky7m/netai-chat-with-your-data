@@ -30,7 +30,7 @@
 
 This is the Chat Application running answering questions based on documents content:
 
-![Chat Aplication running](./images/10ChatApp.png)
+![Chat Aplication running](./images/10ChatApp.gif)
 
 This is the  Document Manager application. this application serves as an example on how to add or update new documents to the document database.
 
@@ -94,7 +94,7 @@ From a Terminal window, open the folder with the clone of this repo and run the 
 
 - Create a new  Codespace using the `Code` button at the top of the repository.
 
-  ![create Codespace](./images/25CreateCodeSpaces.png)
+  ![create Codespace](./images/27CreateCodespace.png)
 
 - The Codespace creation process can take a couple of minutes.
 
@@ -121,7 +121,7 @@ Follow these steps to run the project, locally or in CodeSpaces:
 - Navigate to the Aspire Host folder project using the command:
 
   ```bash
-  cd ./src/eShopAppHost/
+  cd ./src/ChatWYData.AppHost
   ```
 
 - If you are running the project in Codespaces, you need to run this command:
@@ -149,7 +149,7 @@ When utilizing Azure resources in your local development environment, you need t
   ```bash
   az login 
   ```
-- Provide the necessary Configuration values are specified under the Azure section in the `eShopAppHost` project:
+- Provide the necessary Configuration values are specified under the Azure section in the `ChatWYData.AppHost` project:
 
   - CredentialSource: Delegates to the [AzureCliCredential](https://learn.microsoft.com/dotnet/api/azure.identity.azureclicredential).
   - SubscriptionId: The Azure subscription ID.
@@ -175,88 +175,65 @@ Check [.NET Aspire Azure hosting integrations](https://learn.microsoft.com/en-us
 
 ### Analyze the Vector Store in Azure AI Search
 
-To create and fill with data the Vector Store in Azure AI Search, you need to perform a Semantic Search in the application.
+Once you upload documents using the **Document Manager Application**, the solution will store the documents information in an Azure AI Search index.
 
-![perform a Semantic Search in the application](./images/40SemantiSearchResultinBlazorApp.png)
+![document manager sample uploading a document](./images/30DocManagerOverview.gif)
 
-The first search will fill the Vector Store with all the store products.
+When you use the **Chat Application**, the user questions will be processed and answered using a gpt-4o model, and also the information from the Azure AI Search index.
 
-![The first search will fill the Vector Store with all the store products.](./images/421stSemanticSearchInitTheVectorStore.png)
+![Azure AI Search Index](./images/32AzureAISearchIndex.png)
 
-When you perform a new Semantic Search, the elapsed time will be must faster than the 1st one.
+Each conversation in the Chat App:
 
-![the elapsed time will be must faster than the 1st one](./images/442ndSemantiSearchtimes.png)
-
-And the trace will show:
-
-- The search request from `store` to `products`
-- `products` calling the Azure OpenAI embedding model to generate an embedding with the search criteria
-- `products` calling the Azure AI Search to query the vector store using the search criteria
-- `products` calling the Azure OpenAI chat model to generate a user friendly response
-
-![Complete trace for a standard semantic search](./images/46TraceForStandardSemanticSearch.png)
-
-You can also open the Azure AI Search resource in the Azure portal, and check the created index **products** with the data and fields.
-
-![Azure AI Search resource in the Azure portal, and check the created index **products** with the data and fields](./images/48AzureAISearchIndex.png)
+- Initialize Response
+  - Generate a query for Azure AI Search.
+  - Generate an embedding for the search query.
+- Search
+  - Define search options like maximum results and vector property name.
+  - Execute a vectorized search on the document collection.
+  - Filter and collect documents based on the minimum score.
+- Generate Response Message:
+  - If documents are found, generate a friendly response message.
+  - If no documents are found, generate a response from the user's query.
+- Return Response
 
 ### Local development using an existing services
 
-In order to use existing **Azure AI Search Services** and existing **Azure OpenAI models**, like gpt-4o-mini and text-embedding-ada-002, you need to make changes in 2 projects:
+In order to use existing **Azure AI Search Services** and existing **Azure OpenAI models**, like gpt-4o and text-embedding-ada-002, you need to make changes in several project:
 
 #### Aspire AppHost
 
-Open the `program.cs` in `.\src\eShopAppHost\`, and comment the main aspire lines, and uncomment the lines to only create and run the sqldb, the api project and the front end.
+Open the `program.cs` in `.\src\ChatWYData.AppHost\`, and comment the main aspire lines, and uncomment the lines to work in DEV MODE.
 
-![Comment the aspire lines and uncomment the last lines](./images/30RunUsingExistingServices.png)
+![Comment the aspire lines and uncomment the last lines](./images/40WokLocalinDevMode.png)
 
-#### Products
+#### API Projects
 
-Edit and define specific connection strings in the `Products` project.
+Edit and define specific connection strings in the projects"
 
-Add a user secret running the commands:
+- ChatWYData.DescriptionApi
+- ChatWYData.VectorStoreAzureAISearch
+
+Add a user secret running these commands in each project. 
+In example, for the DescriptionApi project:
 
 ```bash
-cd src/Products
-dotnet user-secrets set "ConnectionStrings:openaidev" "Endpoint=https://<endpoint>.openai.azure.com/;Key=<Azure OpenAI Service key>;"
-dotnet user-secrets set "ConnectionStrings:azureaisearchdev" "Endpoint=https://<endpoint>.search.windows.net/;Key=<Azure AI Search key>;"
-```
-
-Update the code to use connection strings which names are `azureaisearchdev` and `openaidev`. Change this:
-
-```csharp
-// To reuse existing Azure AI Search resources, this to "azureaisearchdev", and check the documentation on how to reuse the resources
-var azureAiSearchName = "azureaisearch";
-builder.AddAzureSearchClient(azureAiSearchName);
-
-// To reuse existing Azure OpenAI resources, this to "openaidev", and check the documentation on how to reuse the resources
-var azureOpenAiClientName = "openai";
-builder.AddAzureOpenAIClient(azureOpenAiClientName);
-```
-
-to this:
-
-```csharp
-// To reuse existing Azure AI Search resources, this to "azureaisearchdev", and check the documentation on how to reuse the resources
-var azureAiSearchName = "azureaisearchdev";
-builder.AddAzureSearchClient(azureAiSearchName);
-
-// To reuse existing Azure OpenAI resources, this to "openaidev", and check the documentation on how to reuse the resources
-var azureOpenAiClientName = "openaidev";
-builder.AddAzureOpenAIClient(azureOpenAiClientName);
+cd src/ChatWYData.DescriptionApi
+dotnet user-secrets set "ConnectionStrings:openai" "Endpoint=https://<endpoint>.openai.azure.com/;Key=<Azure OpenAI Service key>;"
+dotnet user-secrets set "ConnectionStrings:azureaisearch" "Endpoint=https://<endpoint>.search.windows.net/;Key=<Azure AI Search key>;"
 ```
 
 ### Telemetry with .NET Aspire and Azure Application Insights
 
-The eShopLite solution leverages the Aspire Dashboard and Azure Application Insights to provide comprehensive telemetry and monitoring capabilities
+The **Chat with your Data solution** leverages the Aspire Dashboard and Azure Application Insights to provide comprehensive telemetry and monitoring capabilities
 
-The **.NET Aspire Dashboard** offers a centralized view of the application's performance, health, and usage metrics. It integrates seamlessly with the Azure OpenAI services, allowing developers to monitor the performance of the `gpt-4o-mini` and `text-embedding-ada-002` models. The dashboard provides real-time insights into the application's behavior, helping to identify and resolve issues quickly.
+The **.NET Aspire Dashboard** offers a centralized view of the application's performance, health, and usage metrics. It integrates seamlessly with the Azure OpenAI services, allowing developers to monitor the performance of the `gpt-4o` and `text-embedding-ada-002` models. The dashboard provides real-time insights into the application's behavior, helping to identify and resolve issues quickly.
 
-![Aspire Dashboard](./images/50AspireDashboard.png)
+![Aspire Dashboard](./images/50AzureAspireDashboard.png)
 
-**Azure Application Insights** complements the Aspire Dashboard by offering deep diagnostic capabilities and advanced analytics. It collects detailed telemetry data, including request rates, response times, and failure rates, enabling developers to understand how the application is performing under different conditions. Application Insights also provides powerful querying and visualization tools, making it easier to analyze trends and detect anomalies. 
+**Azure Application Insights** complements the Aspire Dashboard by offering deep diagnostic capabilities and advanced analytics. It collects detailed telemetry data, including request rates, response times, and failure rates, enabling developers to understand how the application is performing under different conditions. Application Insights also provides powerful querying and visualization tools, making it easier to analyze trends and detect anomalies.
 
-![Azure Application Insights](./images/52AppInsightsDashboard.png)
+![Application Insights Performance Information](./images/52AppInsights-Performance.png)
 
 By combining the Aspire Dashboard with Azure Application Insights, the eShopLite solution ensures robust monitoring and diagnostics, enhancing the overall reliability and performance of the application.
 
