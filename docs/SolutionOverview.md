@@ -82,4 +82,22 @@ Each conversation in the Chat App:
 - Generate Response Message:
   - If documents are found, generate a friendly response message.
   - If no documents are found, generate a response from the user's query.
-- Return Response
+- Return the Response
+
+```mermaid
+stateDiagram
+    [*] --> StartSearch: Start search request
+    StartSearch --> LogSearchRequest: Log search request details
+    LogSearchRequest --> InitializeResponse: Initialize search response object
+    InitializeResponse --> GenerateSearchQuery: Generate search query for Azure AI Search
+    GenerateSearchQuery --> GenerateEmbedding: Generate embedding for search query
+    GenerateEmbedding --> DefineSearchOptions: Define search options
+    DefineSearchOptions --> PerformSearch: Perform vectorized search
+    PerformSearch --> FilterResults: Filter and collect search results
+    FilterResults --> CheckDocumentsFound: Check if any documents were found
+    CheckDocumentsFound --> GenerateFriendlyResponse: Generate friendly response message
+    CheckDocumentsFound --> GenerateDirectResponse: Generate response from user's query
+    GenerateFriendlyResponse --> LogCompletion: Log search completion
+    GenerateDirectResponse --> LogCompletion: Log search completion
+    LogCompletion --> [*]: Return response
+```
