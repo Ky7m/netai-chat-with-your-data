@@ -9,29 +9,29 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Batch Upload</h1>
+<h1 class="title">Batch Upload</h1>
 
 <br />
-<InputFile OnChange="LoadFiles" ButtonStyle="ButtonStyle.Primary" multiple />
+<InputFile OnChange="LoadFiles" ButtonStyle="ButtonStyle.Primary" multiple class="input-file" />
 <br />
 @if (selectedFiles is not null)
 {
     foreach (var file in selectedFiles)
     {
-        <div style="font-size: smaller;">
+        <div class="file-info">
             File: [@("File: " + file.Name + " - Content Type: " + file.ContentType + " - size: " + file.Size)]
         </div>
     }
     <br />
 }
-<button @onclick="UploadFileButtonClick">Upload File</button>
+<button @onclick="UploadFileButtonClick" class="btn-primary">Upload File</button>
 <hr />
-<div style="font-size: smaller;">
-    <button @onclick="ToggleRefreshDocs">@refreshButtonText</button>
+<div class="small-text">
+    <button @onclick="ToggleRefreshDocs" class="btn-secondary">@refreshButtonText</button>
     Last Documents Table Update: [@tableUpdate]
 </div>
-<div style="font-size: smaller;">
-    <button @onclick="StartProcessDocuments">Process All Documents in queue</button>
+<div class="small-text">
+    <button @onclick="StartProcessDocuments" class="btn-secondary">Process All Documents in queue</button>
     Last [Process All Documents in Queue] Run: [@lastDocProcessorRun]
 </div>
 <hr />
@@ -52,14 +52,14 @@
             {
                 <tr>
                     <td>
-                        <div style="font-size: smaller;">
-                            <div><button @onclick="() => ProcessSingleDocument(doc.FileName, doc.FileContentType)">Process Doc</button></div>
-                            <div><button @onclick="() => IgnoreSingleDocument(doc.FileName)">Change Ignore</button></div>
+                        <div class="small-text">
+                            <div><button @onclick="() => ProcessSingleDocument(doc.FileName, doc.FileContentType)" class="btn-secondary">Process Doc</button></div>
+                            <div><button @onclick="() => IgnoreSingleDocument(doc.FileName)" class="btn-secondary">Change Ignore</button></div>
                         </div>
                     </td>
                     <td>
                         @doc.FileName
-                        <div style="font-size: smaller;">
+                        <div class="small-text">
                             <div>Created At: @doc.CreatedDate</div>
                             <div>Updated At: @doc.LastModifiedDate</div>
                             <div>Ignore: @doc.Ignore</div>
@@ -69,7 +69,7 @@
                     <td>
                         @foreach (var step in doc.StepsDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
                         {
-                            <div style="font-size: smaller;">@step</div>
+                            <div class="small-text">@step</div>
                         }
                     </td>
                 </tr>
@@ -77,6 +77,65 @@
         </tbody>
     }
 </table>
+
+<style>
+    .title {
+        color: #512BD4;
+    }
+
+    .input-file {
+        margin-bottom: 10px;
+    }
+
+    .file-info {
+        font-size: smaller;
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #512BD4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #3A1D9F;
+        }
+
+    .btn-secondary {
+        background-color: #6A1B9A;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+        .btn-secondary:hover {
+            background-color: #4A148C;
+        }
+
+    .small-text {
+        font-size: smaller;
+        color: #555;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #512BD4;
+            color: white;
+        }
+</style>
 
 @code {
 

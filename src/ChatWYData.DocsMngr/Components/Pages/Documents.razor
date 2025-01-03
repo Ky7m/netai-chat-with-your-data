@@ -5,7 +5,7 @@
 
 <PageTitle>Documents</PageTitle>
 
-<h1>Documents</h1>
+<h1 class="title">Documents</h1>
 
 <p>Here are some of our amazing documents that you can check.</p>
 
@@ -29,7 +29,7 @@ else
                 <tr>
                     <td>
                         <a href="@doc.FileBlobUri" target="_blank">@doc.FileName</a>
-                        <div style="font-size: smaller;">
+                        <div class="small-text">
                             <div>Content Type: @doc.FileContentType</div>
                             <div>Created At: @doc.CreatedAt</div>
                             <div>Updated At: @doc.UpdatedAt</div>
@@ -38,7 +38,7 @@ else
                     </td>
                     <td>@doc.FileDescription</td>
                     <td>
-                        <div style="font-size: smaller;">
+                        <div class="small-text">
                             @(doc.FileMarkDown.Length > 200 ? doc.FileMarkDown.Substring(0, 200) + "..." : doc.FileMarkDown)
                         </div>
                     </td>
@@ -47,6 +47,65 @@ else
         </tbody>
     </table>
 }
+
+<style>
+    .title {
+        color: #512BD4;
+    }
+
+    .input-file {
+        margin-bottom: 10px;
+    }
+
+    .file-info {
+        font-size: smaller;
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #512BD4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #3A1D9F;
+        }
+
+    .btn-secondary {
+        background-color: #6A1B9A;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+        .btn-secondary:hover {
+            background-color: #4A148C;
+        }
+
+    .small-text {
+        font-size: smaller;
+        color: #555;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #512BD4;
+            color: white;
+        }
+</style>
 
 @code {
     private List<Document>? documents;
