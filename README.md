@@ -161,7 +161,7 @@ When utilizing Azure resources in your local development environment, you need t
   - ResourceGroup: The name of the resource group to use.
   - Location: The Azure region to use.
 
-Consider the following example for the *appsettings.json* file in the eShopAppHost project configuration:
+Consider the following example for the *appsettings.json* file in the `ChatWYData.AppHost` project configuration:
 
 ```json
 {
@@ -225,7 +225,7 @@ The **.NET Aspire Dashboard** offers a centralized view of the application's per
 
 ![Application Insights Performance Information](./images/52AppInsights-Performance.png)
 
-By combining the Aspire Dashboard with Azure Application Insights, the eShopLite solution ensures robust monitoring and diagnostics, enhancing the overall reliability and performance of the application.
+By combining the Aspire Dashboard with Azure Application Insights, the `Chat With Your Data` solution ensures robust monitoring and diagnostics, enhancing the overall reliability and performance of the application.
 
 ## Guidance
 
@@ -267,4 +267,3 @@ You may want to consider additional security measures, such as:
 - [Deploy a .NET Aspire project to Azure Container Apps using the Azure Developer CLI (in-depth guide)](https://learn.microsoft.com/dotnet/aspire/deployment/azure/aca-deployment-azd-in-depth)
 
 - [Aspiring .NET Applications with Azure OpenAI](https://learn.microsoft.com/shows/azure-developers-dotnet-aspire-day-2024/aspiring-dotnet-applications-with-azure-openai)
-
