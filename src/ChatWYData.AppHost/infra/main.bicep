@@ -86,6 +86,7 @@ output AZURE_CONTAINER_APPS_ENVIRONMENT_ID string = resources.outputs.AZURE_CONT
 output AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN string = resources.outputs.AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN
 output SERVICE_SQL_VOLUME_CHATWYDATAAPPHOST7882D1D3F8SQLDATA_NAME string = resources.outputs.SERVICE_SQL_VOLUME_CHATWYDATAAPPHOST7882D1D3F8SQLDATA_NAME
 output APPINSIGHTS_APPINSIGHTSCONNECTIONSTRING string = appInsights.outputs.appInsightsConnectionString
+output APPLICATIONINSIGHTS_CONNECTION_STRING string = appInsights.outputs.appInsightsConnectionString
 output AZUREAISEARCH_CONNECTIONSTRING string = azureaisearch.outputs.connectionString
 output OPENAI_CONNECTIONSTRING string = openai.outputs.connectionString
 output STORAGE_BLOBENDPOINT string = storage.outputs.blobEndpoint
